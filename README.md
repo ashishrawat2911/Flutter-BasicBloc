@@ -38,7 +38,7 @@ class BaseBloc<T> {
 }
 ````
 
-##How to Use
+## How to Use
 
 ````
 
