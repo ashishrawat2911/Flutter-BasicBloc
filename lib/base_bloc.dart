@@ -2,30 +2,33 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-typedef ValueChanged<T> = Widget Function(AsyncSnapshot<T> T);
+typedef OnWidgetChanged<T> = Widget Function( T);
 
-typedef DoAnything<T> = T Function();
+typedef DoAnything<T> = T Function(T);
 
 class BaseBloc<T> {
-  var initData;
+  var value;
   StreamController<T> controller = StreamController<T>.broadcast();
 
-  BaseBloc(this.initData);
+  BaseBloc(var initialData) {
+    this.value = initialData;
+  }
 
-  doAnything({@required DoAnything whatTodo}) {
-    controller.sink.add(whatTodo());
+  doSomething({@required DoAnything whatTodo}) {
+    value=whatTodo(value);
+    controller.sink.add(value);
   }
 
   void dispose() {
     controller.close();
   }
 
-  Widget blocWidget({@required ValueChanged widget}) {
+  Widget blocWidget({@required OnWidgetChanged widget}) {
     return StreamBuilder<T>(
-        initialData: initData,
+        initialData: value,
         stream: controller.stream,
         builder: (context, snapshot) {
-          return widget(snapshot);
+          return widget(snapshot.data);
         });
   }
 }

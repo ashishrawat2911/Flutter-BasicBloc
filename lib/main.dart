@@ -26,15 +26,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   BaseBloc<int> baseBloc;
-
-  void _incrementCounter() {
-    baseBloc.doAnything(whatTodo: () {
-      _counter++;
-      return _counter;
-    });
-  }
 
   @override
   void initState() {
@@ -61,9 +53,9 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               'You have pushed the button this many times:',
             ),
-            baseBloc.blocWidget(widget: (snapshot) {
+            baseBloc.blocWidget(widget: (value) {
               return Text(
-                '${snapshot.data}',
+                '$value',
                 style: Theme.of(context).textTheme.display1,
               );
             }),
@@ -71,10 +63,14 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {
+          baseBloc.doSomething(whatTodo: (value) {
+            value++;
+            return value;
+          });
+        },
         tooltip: 'Increment',
         child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+      ),);
   }
 }
