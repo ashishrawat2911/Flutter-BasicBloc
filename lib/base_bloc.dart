@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-typedef OnWidgetChanged<T> = Widget Function( T);
+typedef OnWidgetChanged<T> = Widget Function(T);
 
 typedef DoAnything<T> = T Function(T);
 
