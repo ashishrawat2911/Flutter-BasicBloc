@@ -26,12 +26,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  BaseBloc<int> baseBloc;
+  BaseStateBloc<int> baseBloc;
 
   @override
   void initState() {
     super.initState();
-    baseBloc = BaseBloc(0);
+    baseBloc = BaseStateBloc(0);
   }
 
   @override
@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          baseBloc.doSomething(whatTodo: (value) {
+          baseBloc.changeState(state: (value) {
             value++;
             return value;
           });
